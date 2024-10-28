@@ -1,3 +1,12 @@
+#PROYECTO FINAL DE ANÁLISIS DE DATOS NIVEL INTEGRADOR
+     #Análisis del Talento Humano en Ciencia y Tecnología en Colombia.
+#Integrantes
+     #Santiago Londoño
+          #C.C. 1036952306
+     #Luis Fernando Restrepo
+          #C.C. 1036954446
+
+
 # Paso Importar las bibliotecas necesarias
 import pandas as pd
 import streamlit as st
@@ -51,7 +60,7 @@ df_graduados_tic.head()
 df_graduados_tic.info()
 
 # Definición de elemntos navegacionales
-tab1,tab2, tab3,tab5, tab4, tab6 = st.tabs(['Demanada TIC 2023', 'Top 5 demanda por municipio 2023', 'Demanda Total por municipio','Matricula programas TIC 2017-18', 'Mapa talento humano graduado 2023','Comparación oferta demanda TIC' ])
+tab1,tab2, tab3,tab5, tab4, tab6 = st.tabs(['Demanda TIC 2023', 'Top 5 demanda por municipio 2023', 'Demanda Total por municipio','Matricula programas TIC 2017-18', 'Mapa talento humano graduado 2023','Comparación oferta demanda TIC' ])
 
 # Transformaciones
 
@@ -61,7 +70,9 @@ df_perfiles = df_perfiles.drop(['Ocupación_CIUO','Ocupación_CNO'], axis= 1)
 #df demanda de perfiles tic
 df_demanda_perfiles = df_perfiles.groupby('Cargo_identificado').count()['ID_CARGO'].reset_index()
 df_demanda_perfiles = df_demanda_perfiles.sort_values(by='ID_CARGO',ascending= False)
+
 print(df_demanda_perfiles.info())
+
 
 #df_talento humano en áreas TIC graduados en 2023
 df_graduados_tic.loc[len(df_graduados_tic)] = [7,'BARRANQUILLA',10.96854, -74.78132,1016]
@@ -187,14 +198,14 @@ with tab5:
                
 
 with tab6:
-     st.header('')
+     st.header('Comparación por municipios entre talento humano recién graduado y demanda de cargos TIC en Colombia para el año 2023')
      with st.container(border=True):
           st.line_chart(df_of_dem, x='MUNICIPIO',
                     y=['Cargos_demandados','graduados_2023'],
                     height=700
                     )
      
-     st.header('')
+     st.header('Tabla oferta demanda TIC por municipio')
      with st.container(border=True):
           ver_df_demanda_municipio = st.toggle('Ver Dataframe municipio', value=True)
           if ver_df_demanda_municipio:
